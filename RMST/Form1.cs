@@ -158,12 +158,14 @@ namespace WinFormsApp1
 
             try
             {
-                if (!File.Exists("conf.json"))
+                 if (!File.Exists("conf.json"))
                 {
-                    File.Create("conf.json");
+                    File.Create("conf.json").Dispose();
+                    File.WriteAllText("conf.json", json);
                 }
                 else
                 {
+                    File.Open("conf.json", FileMode.Open).Dispose();
                     File.WriteAllText("conf.json", json);
                 }
             }
